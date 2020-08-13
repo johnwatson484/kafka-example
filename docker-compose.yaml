@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  kafka-example:
+    build:
+      context: .
+      target: production
+    image: kafka-example
