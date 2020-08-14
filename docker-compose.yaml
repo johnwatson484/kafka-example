@@ -5,3 +5,4 @@ services:
       context: .
       target: production
     image: kafka-example
+    container_name: kafka-example

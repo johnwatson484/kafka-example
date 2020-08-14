@@ -10,15 +10,10 @@ services:
       target: development
     depends_on: 
       - kafka
-      - zookeeper
     volumes:
       - ./app/:/home/node/app/
-      - ./scripts/:/home/node/scripts/
       - ./package.json:/home/node/package.json
-    command: >
-      sh -c "
-        scripts/wait-for kafka:9092 --
-        npm run start:watch"
+
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
@@ -26,18 +21,10 @@ services:
 
   kafka:
     image: wurstmeister/kafka
-    depends_on:
-      - zookeeper
+    hostname: kafka
     ports:
       - "9092:9092"
-    command: >
-      sh -c "
-        scripts/wait-for zookeeper:2181 --
-        start-kafka.sh"
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPICS: "Topic1:1:1"
-    volumes:
-      - ./scripts/:/scripts/
