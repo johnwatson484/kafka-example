@@ -5,20 +5,6 @@ WORKDIR /home/node
 
 ENV NODE_ENV development
 
-# Add Kafka dependencies
-RUN apk --no-cache add \
-  bash \
-  g++ \
-  ca-certificates \
-  lz4-dev \
-  musl-dev \
-  cyrus-sasl-dev \
-  openssl-dev \
-  make \
-  python
-
-RUN apk add --no-cache --virtual .build-deps gcc zlib-dev libc-dev bsd-compat-headers py-setuptools bash
-
 USER node
 
 # Set global npm dependencies to be stored under the node user directory
